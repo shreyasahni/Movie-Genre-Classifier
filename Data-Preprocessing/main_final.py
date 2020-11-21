@@ -62,7 +62,7 @@ df_1 = movies.iloc[:25000, :]
 df_2 = movies.iloc[25001:, :]
 
 df_1.to_csv("movies_train.csv")
-df_1.to_csv("movies_test.csv")
+df_2.to_csv("movies_test.csv")
 
 print_distr(df_1['genre'])
 print_distr(df_2['genre'])
