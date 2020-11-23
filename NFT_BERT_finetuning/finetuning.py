@@ -95,7 +95,8 @@ estimator = tf.estimator.tpu.TPUEstimator(
   params={},
   use_tpu=False,
   eval_on_tpu=False,
-  export_to_tpu=False)
+  export_to_tpu=False,
+  export_to_cpu=True)
 
 # Create an input function for training. drop_remainder = True for using TPUs.
 train_input_fn = input_fn_builder(
@@ -117,5 +118,6 @@ test_input_fn = input_fn_builder(
     is_training=False,
     drop_remainder=False)
 
-estimator.evaluate(input_fn=test_input_fn, steps=None)
-
+eval_metrics = estimator.evaluate(input_fn=test_input_fn, steps=None)
+print("Test Set results: ")
+print(eval_metrics)

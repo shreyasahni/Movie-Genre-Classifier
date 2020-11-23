@@ -2,7 +2,7 @@
 Contains all functions used in finetuning BERT
 
 Installs required:
-pip install sklearn
+pip install numpy
 pip install pandas
 pip install tensorflow
 pip install tensorflow-hub
@@ -11,7 +11,7 @@ pip install bert-tensorflow
 
 import pandas as pd
 import tensorflow.compat.v1 as tf
-from tensorflow import keras
+import numpy as np
 import tensorflow_hub as hub
 from datetime import datetime
 
@@ -273,18 +273,9 @@ def model_fn_builder(num_labels, learning_rate, num_train_steps,
     elif mode == tf.estimator.ModeKeys.EVAL:
 
       def metric_fn(per_example_loss, label_ids, probabilities):
-        accuracy = 0 #Cant find appropriate tensorflow functions
-        '''How I would do it if these were lists
-        predicted = [[i for i,x in j.enumerate() if x>=0.5] for j in probabilities]
-        total = 0
-        for i, labels in predicted:
-            for label in labels:
-                if label in label_ids[i]:
-                    subtotal+=1
-            subtotal/=len(labels)
-            total+=subtotal
-        accuracy = total/len(label_ids)
-        '''
+        accuracy = tf.constant(100, dtype=tf.int32) 
+        mult = tf.cast(tf.math.multiply(label_ids, probabilities) > 0.5, dtype=tf.float32)
+        accuracy = tf.metrics.mean(tf.divide(tf.reduce_sum(mult, axis=None, keepdims=False), tf.reduce_sum(label_ids, axis=None, keepdims=False)))
         loss = tf.metrics.mean(per_example_loss)
         return {
             "eval_accuracy": accuracy,
@@ -357,3 +348,6 @@ def input_fn_builder(features, seq_length, num_labels, is_training, drop_remaind
     return d
 
   return input_fn
+    
+    
+    
