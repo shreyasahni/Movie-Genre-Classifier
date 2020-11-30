@@ -48,7 +48,7 @@ def make_dataset(df, sentences, labels_bool):   #Makes train/test dataset(create
         j = 0
         while j < min(len(sentence), max_len):
             if sentence[j] in embeddings_dict.keys():
-                word_matrix[j,:] = embeddings_dict[word]
+                word_matrix[j,:] = embeddings_dict[sentence[j]]
             j = j+1
         sentences[i,:,:] = word_matrix.reshape(n_input,1)
         
