@@ -1,3 +1,5 @@
+# extracts, cleans-up genre data from movies_metadata and writes the new dataframe to movies_new.csv
+
 import pandas as pd
 import nltk
 import matplotlib.pyplot as plt
