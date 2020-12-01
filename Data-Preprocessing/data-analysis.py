@@ -1,3 +1,6 @@
+# splits dataset from movies_final.csv to movies_train.csv and movies_test.csv
+# also performs data analysis on overview data
+
 import pandas as pd
 import nltk
 import matplotlib.pyplot as plt
