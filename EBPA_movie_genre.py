@@ -113,10 +113,11 @@ for j in range(30):   # epochs
     print(error)
 
 #now print accuracy
+sentences_test, test_labels = make_dataset(df_test, sentences_test, test_labels)
 Y_pred = np.zeros((n_test,n_output,1))
 for i in range(n_test):    #performs forward prop on test data
     _, _, Y_pred[i,:,:] = forward_prop(sentences_test[i,:,:], weights, Z1, Z2, Y_pred[i,:,:])
     
-Y_pred = (Y_pred > 0.5)*1    #set predictions with probability > 0.5 as 1 
-correct = np.sum(Y_pred == test_labels)    #count the correctly labelled classes
-print(correct/(n_test*n_output))
+significant = (np.multiply(Y_pred, test_labels) > 0.5) * 1
+accuracy = np.sum(significant)/np.sum(test_labels)
+print(accuracy)
