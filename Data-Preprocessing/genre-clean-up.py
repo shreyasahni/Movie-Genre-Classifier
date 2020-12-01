@@ -5,7 +5,7 @@ import seaborn as sns
 
 pd.set_option('display.max_colwidth', 300)
 
-meta = pd.read_csv("movies_metadata.csv.csv")
+meta = pd.read_csv("movies_metadata.csv")
 
 # creating data frame
 movies = pd.DataFrame({'movie_name': meta['movie_name'], 'plot': meta['plot']})
