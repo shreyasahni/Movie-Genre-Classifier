@@ -1,3 +1,5 @@
+# extracts, cleans up overview data from movies_new.csv and writes new dataframe to movies_final.csv
+
 import pandas as pd
 import nltk
 import re
